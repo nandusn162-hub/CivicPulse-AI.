@@ -1,0 +1,129 @@
+# ==============================================================================
+# CivicPulse AI - Git Ignore
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Environment & Secret Files (CRITICAL: NEVER COMMIT)
+# ------------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.env
+*.env.local
+*.env.development
+*.env.test
+*.env.production
+backend/.env*
+!backend/.env.example
+frontend/.env*
+!frontend/.env.example
+
+# ------------------------------------------------------------------------------
+# 2. Database Files & Backups
+# ------------------------------------------------------------------------------
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-wal
+*.db-shm
+civicpulse.db
+backend/civicpulse.db
+backend/test.db
+uploads/
+backend/uploads/
+storage/
+
+# ------------------------------------------------------------------------------
+# 3. Python Virtual Environments & Bytecode
+# ------------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+venv*/
+backend/venv/
+backend/.venv/
+backend/venv312/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ------------------------------------------------------------------------------
+# 4. Node / Frontend Dependencies & Builds
+# ------------------------------------------------------------------------------
+node_modules/
+frontend/node_modules/
+.pnp
+.pnp.js
+frontend/dist/
+frontend/dist-ssr/
+frontend/build/
+.npm
+*.tsbuildinfo
+
+# ------------------------------------------------------------------------------
+# 5. Logs & Temporary Scripts
+# ------------------------------------------------------------------------------
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+_check_union.py
+_find_union.py
+_fix_union.py
+_fix_union2.py
+_import_models.py
+_replace_object.py
+_scan_union2.py
+backend/test_auth_flow.py
+backend/start_server.py
+backend/import_models_test.py
+backend/app/models/_find_union.py
+backend/app/models/_import_test.py
+
+# ------------------------------------------------------------------------------
+# 6. IDE, OS & Editor Metadata
+# ------------------------------------------------------------------------------
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# ------------------------------------------------------------------------------
+# 7. Testing & Coverage
+# ------------------------------------------------------------------------------
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
