@@ -7,9 +7,13 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sess
 from sqlalchemy import event
 from app.core.config import settings
 
-# Determine the database URL — convert sqlite:/// to sqlite+aiosqlite:///
+# Determine the database URL and normalize for async drivers
 db_url = settings.DATABASE_URL
-if db_url.startswith("sqlite:///"):
+if db_url.startswith("postgres://"):
+    db_url = db_url.replace("postgres://", "postgresql+asyncpg://", 1)
+elif db_url.startswith("postgresql://") and not db_url.startswith("postgresql+"):
+    db_url = db_url.replace("postgresql://", "postgresql+asyncpg://", 1)
+elif db_url.startswith("sqlite:///") and not db_url.startswith("sqlite+"):
     db_url = db_url.replace("sqlite:///", "sqlite+aiosqlite:///", 1)
 
 # SQLite doesn't support pool_size / max_overflow

@@ -1,5 +1,6 @@
 import os
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import model_validator
 from typing import Optional, List
 
 class Settings(BaseSettings):
@@ -15,6 +16,31 @@ class Settings(BaseSettings):
     # Database URLs
     DATABASE_URL: str = "sqlite+aiosqlite:///./civicpulse.db"
     DATABASE_URL_SYNC: str = "sqlite:///./civicpulse.db"
+
+    @model_validator(mode="after")
+    def normalize_database_urls(self) -> "Settings":
+        """Normalize database URLs so async and sync engines use the correct drivers."""
+        # 1. Normalize async DATABASE_URL:
+        url = self.DATABASE_URL
+        if url.startswith("postgres://"):
+            url = url.replace("postgres://", "postgresql+asyncpg://", 1)
+        elif url.startswith("postgresql://") and not url.startswith("postgresql+"):
+            url = url.replace("postgresql://", "postgresql+asyncpg://", 1)
+        elif url.startswith("sqlite:///") and not url.startswith("sqlite+"):
+            url = url.replace("sqlite:///", "sqlite+aiosqlite:///", 1)
+        self.DATABASE_URL = url
+
+        # 2. Normalize sync DATABASE_URL_SYNC:
+        sync_url = self.DATABASE_URL_SYNC
+        if sync_url.startswith("postgres://"):
+            sync_url = sync_url.replace("postgres://", "postgresql://", 1)
+        elif sync_url.startswith("postgresql+asyncpg://"):
+            sync_url = sync_url.replace("postgresql+asyncpg://", "postgresql://", 1)
+        elif sync_url.startswith("sqlite+aiosqlite:///"):
+            sync_url = sync_url.replace("sqlite+aiosqlite:///", "sqlite:///", 1)
+        self.DATABASE_URL_SYNC = sync_url
+
+        return self
 
     # Security / JWT
     SECRET_KEY: str = "change-me-to-a-32-byte-random-string"
