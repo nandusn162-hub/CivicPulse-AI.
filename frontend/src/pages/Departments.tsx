@@ -92,7 +92,7 @@ export default function DepartmentsPage() {
                 </div>
 
                 <div className="flex flex-wrap gap-1.5 pt-1">
-                  {dept.categories.map((c) => (
+                  {dept.categories.map((c: string) => (
                     <span
                       key={c}
                       className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-teal-50/80 text-teal-700 border border-teal-100 capitalize"

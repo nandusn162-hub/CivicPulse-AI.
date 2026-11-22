@@ -268,7 +268,7 @@ export default function ComplaintDetailPage() {
                 </div>
 
                 <div className="space-y-2.5">
-                  {Object.entries(aiAnalysis.community_impact_score.weights).map(([factor, item]) => (
+                  {Object.entries(aiAnalysis.community_impact_score.weights).map(([factor, item]: [string, { weight: string; score: number; description: string }]) => (
                     <div key={factor} className="space-y-1">
                       <div className="flex justify-between text-xs">
                         <span className="font-semibold text-slate-700 capitalize">

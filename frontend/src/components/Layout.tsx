@@ -36,7 +36,7 @@ export default function Layout({ children }: LayoutProps) {
   useEffect(() => {
     // Compute a simple community impact score from stats
     fetchComplaintStats()
-      .then((stats) => {
+      .then((stats: { total?: number; resolved?: number }) => {
         const total = stats.total || 1;
         const resolved = stats.resolved || 0;
         const score = Math.round((resolved / total) * 100);
